@@ -19,6 +19,9 @@ public class OrderItem {
     private Long id;
 
     // 소속 주문
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "order_id", nullable = false)
+    private Order order;
 
     // 주문한 메뉴
     @ManyToOne(fetch = FetchType.LAZY)
@@ -35,7 +38,7 @@ public class OrderItem {
 
     @Builder
     public OrderItem(Order order, Menu menu, int quantity, int price) {
-        //this.order = order;
+        this.order = order;
         this.menu = menu;
         this.quantity = quantity;
         this.price = price;

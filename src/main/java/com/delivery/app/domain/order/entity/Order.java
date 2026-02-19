@@ -34,9 +34,9 @@ public class Order extends BaseEntity {
     private Restaurant restaurant;
 
     // 배달 담당 라이더(배정 전 null)
-    //@ManyToOne(fetch = FetchType.LAZY)
-    //@JoinColumn(name = "rider_id")
-    //private Rider rider;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "rider_id")
+    private Rider rider;
 
     // 주문 항목 목록
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL, orphanRemoval = true)
