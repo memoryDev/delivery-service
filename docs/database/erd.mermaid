@@ -1,0 +1,102 @@
+erDiagram
+    USER {
+        bigint id PK
+        string email UK
+        string password
+        string name
+        string phone
+        string address
+        enum role "USER, OWNER, RIDER"
+        datetime created_at
+        datetime updated_at
+    }
+
+    RESTAURANT {
+        bigint id PK
+        bigint owner_id FK
+        string name
+        string address
+        string phone
+        string category
+        float min_order_price
+        float delivery_fee
+        enum status "OPEN, CLOSED"
+        float rating
+        datetime created_at
+        datetime updated_at
+    }
+
+    MENU {
+        bigint id PK
+        bigint restaurant_id FK
+        string name
+        string description
+        int price
+        enum status "AVAILABLE, SOLD_OUT"
+        datetime created_at
+        datetime updated_at
+    }
+
+    ORDERS {
+        bigint id PK
+        bigint user_id FK
+        bigint restaurant_id FK
+        bigint rider_id FK
+        string delivery_address
+        int total_price
+        enum status "PENDING, ACCEPTED, COOKING, DELIVERING, DELIVERED, CANCELLED"
+        datetime ordered_at
+        datetime delivered_at
+    }
+
+    ORDER_ITEM {
+        bigint id PK
+        bigint order_id FK
+        bigint menu_id FK
+        int quantity
+        int price
+    }
+
+    PAYMENT {
+        bigint id PK
+        bigint order_id FK
+        string portone_uid UK
+        int amount
+        enum method "CARD, KAKAO_PAY, NAVER_PAY, TOSS"
+        enum status "READY, PAID, CANCELLED, FAILED"
+        datetime paid_at
+        datetime created_at
+    }
+
+    REVIEW {
+        bigint id PK
+        bigint order_id FK
+        bigint user_id FK
+        bigint restaurant_id FK
+        int rating "1-5"
+        string content
+        datetime created_at
+        datetime updated_at
+    }
+
+    RIDER {
+        bigint id PK
+        bigint user_id FK
+        string vehicle_type
+        enum status "AVAILABLE, DELIVERING, OFF"
+        string fcm_token
+        datetime created_at
+        datetime updated_at
+    }
+
+    USER ||--o{ RESTAURANT : "owns (OWNER)"
+    USER ||--o{ ORDERS : "places"
+    USER ||--o| RIDER : "is"
+    RESTAURANT ||--o{ MENU : "has"
+    RESTAURANT ||--o{ ORDERS : "receives"
+    RESTAURANT ||--o{ REVIEW : "receives"
+    ORDERS ||--o{ ORDER_ITEM : "contains"
+    ORDERS ||--|| PAYMENT : "has"
+    ORDERS ||--o| REVIEW : "has"
+    ORDERS ||--o| RIDER : "assigned to"
+    MENU ||--o{ ORDER_ITEM : "included in"
