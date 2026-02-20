@@ -3,6 +3,7 @@ package com.delivery.app.domain.review.entity;
 import com.delivery.app.domain.order.entity.Order;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.user.entity.User;
+import com.delivery.app.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -13,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "reviews")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Review {
+public class Review extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
