@@ -1,6 +1,7 @@
 package com.delivery.app.domain.order.entity;
 
 import com.delivery.app.domain.restaurant.entity.Restaurant;
+import com.delivery.app.domain.rider.entity.Rider;
 import com.delivery.app.domain.user.entity.User;
 import com.delivery.app.global.entity.BaseEntity;
 import jakarta.persistence.*;
@@ -85,9 +86,9 @@ public class Order extends BaseEntity {
     }
 
     // 라이더 배정
-    //public void assignRider(Rider rider) {
-    //    this.rider = rider
-    //}
+    public void assignRider(Rider rider) {
+        this.rider = rider;
+    }
 
 
 

@@ -1,6 +1,7 @@
 package com.delivery.app.domain.restaurant.entity;
 
 import com.delivery.app.domain.user.entity.User;
+import com.delivery.app.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "restaurants")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Restaurant {
+public class Restaurant extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,6 +1,7 @@
 package com.delivery.app.domain.rider.entity;
 
 import com.delivery.app.domain.user.entity.User;
+import com.delivery.app.global.entity.BaseEntity;
 import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -11,7 +12,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @Table(name = "riders")
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-public class Rider {
+public class Rider extends BaseEntity {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
