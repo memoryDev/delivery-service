@@ -55,7 +55,7 @@ public class UserService {
                 .orElseThrow(() -> new DeliveryException(ErrorCode.USER_NOT_FOUND));
 
         // 비밀번호 검증
-        if (passwordEncoder.matches(request.getPassword(), user.getPassword())) {
+        if (!passwordEncoder.matches(request.getPassword(), user.getPassword())) {
             throw new DeliveryException(ErrorCode.INVALID_PASSWORD);
         }
 
