@@ -19,5 +19,5 @@ public class CreateMenuRequest {
 
     @NotNull(message = "음식 값을 입력해 주세요.")
     @Min(value = 0, message = "음식 값은 0원 이상이어야 합니다.")
-    private int price;
+    private Integer price;
 }
