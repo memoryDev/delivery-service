@@ -42,6 +42,8 @@ public class RestaurantService {
                 request.getDeliveryFee()
         );
 
+        restaurantRepository.save(restaurant);
+
         return RestaurantResponse.from(restaurant);
     }
 
