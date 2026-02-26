@@ -2,6 +2,7 @@ package com.delivery.app.domain.user.controller;
 
 import com.delivery.app.domain.user.dto.request.LoginRequest;
 import com.delivery.app.domain.user.dto.request.SignUpRequest;
+import com.delivery.app.domain.user.dto.request.UpdateMeRequest;
 import com.delivery.app.domain.user.dto.response.TokenResponse;
 import com.delivery.app.domain.user.dto.response.UserResponse;
 import com.delivery.app.domain.user.service.UserService;
@@ -43,10 +44,8 @@ public class UserController {
     @PutMapping("/api/users/me")
     public ResponseEntity<ApiResponse<UserResponse>> updateMe(
             @AuthenticationPrincipal Long userId,
-            @RequestParam String name,
-            @RequestParam String phone,
-            @RequestParam String address) {
-        UserResponse response = userService.updateMe(userId, name, phone, address);
+            @Valid @RequestBody UpdateMeRequest request) {
+        UserResponse response = userService.updateMe(userId, request.getName(), request.getPhone(), request.getAddress());
         return ResponseEntity.ok(ApiResponse.ok(response));
     }
 }
