@@ -6,6 +6,11 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum ErrorCode {
+
+    // Common
+    INVALID_INPUT_VALUE(400, "잘못된 입력값입니다."),
+    INVALID_TYPE_VALUE(400, "유효하지 않은 타입의 값이 입력되었습니다."),
+
     // User
     USER_NOT_FOUND(404, "사용자를 찾을 수 없습니다."),
     EMAIL_ALREADY_EXISTS(409, "이미 사용 중인 이메일입니다."),

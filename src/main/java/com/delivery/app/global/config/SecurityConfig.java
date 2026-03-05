@@ -36,7 +36,7 @@ public class SecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         // 인증 없이 접근 가능
                         .requestMatchers("/api/auth/**").permitAll()
-                        .requestMatchers("/api/restauratns/**").permitAll()
+                        .requestMatchers("/api/restaurants/**").permitAll()
                         .requestMatchers("/swagger-ui/**", "/api-docs/**").permitAll()
                         // 사장님만 접근 가능
                         .requestMatchers("/api/owner/**").hasRole("OWNER")
