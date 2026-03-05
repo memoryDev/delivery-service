@@ -22,10 +22,10 @@ public class UpdateRestaurantRequest {
 
     @NotNull(message = "최소 주문 금액을 입력해 주세요.")
     @Min(value = 0, message = "최소 주문 금액은 0원 이상이어야 합니다.")
-    private int minOrderPrice;
+    private Integer minOrderPrice;
 
     @NotNull(message = "배달비를 입력해 주세요.")
     @Min(value = 0, message = "배달비는 0원 이상이어야 합니다.")
-    private int deliveryFee;
+    private Integer deliveryFee;
 
 }

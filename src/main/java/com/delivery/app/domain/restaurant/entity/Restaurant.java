@@ -51,6 +51,9 @@ public class Restaurant extends BaseEntity {
     @Column(nullable = false)
     private RestaurantStatus status;
 
+    @Column(name = "is_deleted", nullable = false)
+    private boolean isDeleted = false;
+
     @Builder
     private Restaurant(User owner, String name, String address, String phone, String category, int minOrderPrice, int deliveryFee) {
         this.owner = owner;
@@ -62,6 +65,7 @@ public class Restaurant extends BaseEntity {
         this.deliveryFee = deliveryFee;
         this.rating = 0.0;
         this.status = RestaurantStatus.OPEN;
+        this.isDeleted = false;
     }
 
     // 객체 생성시 사용
@@ -95,5 +99,10 @@ public class Restaurant extends BaseEntity {
     // 리뷰 등록 시 평균 평점 업데이트
     public void updateRating(double rating) {
         this.rating = rating;
+    }
+
+    // 음식점 삭제
+    public void delete() {
+        this.isDeleted = true;
     }
 }
