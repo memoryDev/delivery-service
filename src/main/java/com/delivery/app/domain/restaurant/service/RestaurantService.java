@@ -2,6 +2,7 @@ package com.delivery.app.domain.restaurant.service;
 
 import com.delivery.app.domain.restaurant.dto.request.CreateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantRequest;
+import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantStatusRequest;
 import com.delivery.app.domain.restaurant.dto.response.RestaurantResponse;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
@@ -79,7 +80,7 @@ public class RestaurantService {
                 .orElseThrow(() -> new DeliveryException(ErrorCode.RESTAURANT_NOT_FOUND));
 
         // 본인 음식점인지 확인
-        if (restaurant.getOwner().getId().equals(ownerId)) {
+        if (!restaurant.getOwner().getId().equals(ownerId)) {
             throw new DeliveryException(ErrorCode.RESTAURANT_NOT_OWNER);
         }
 
@@ -106,12 +107,13 @@ public class RestaurantService {
             throw new DeliveryException(ErrorCode.RESTAURANT_NOT_OWNER);
         }
 
-        restaurantRepository.delete(restaurant);
+        // 음식점 삭제
+        restaurant.delete();
     }
 
     // 영업 상태 변경
     @Transactional
-    public RestaurantResponse updateStatus(Long ownerId, Long restaurantId, RestaurantStatus status) {
+    public RestaurantResponse updateStatus(Long ownerId, Long restaurantId, UpdateRestaurantStatusRequest request) {
         Restaurant restaurant = restaurantRepository.findById(restaurantId)
                 .orElseThrow(() -> new DeliveryException(ErrorCode.RESTAURANT_NOT_FOUND));
 
@@ -120,7 +122,7 @@ public class RestaurantService {
             throw new DeliveryException(ErrorCode.RESTAURANT_NOT_OWNER);
         }
 
-        restaurant.updateStatus(status);
+        restaurant.updateStatus(request.getStatus());
 
         return RestaurantResponse.from(restaurant);
 

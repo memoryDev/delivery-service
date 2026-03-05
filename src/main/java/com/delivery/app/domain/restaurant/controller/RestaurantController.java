@@ -2,6 +2,7 @@ package com.delivery.app.domain.restaurant.controller;
 
 import com.delivery.app.domain.restaurant.dto.request.CreateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantRequest;
+import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantStatusRequest;
 import com.delivery.app.domain.restaurant.dto.response.RestaurantResponse;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
 import com.delivery.app.domain.restaurant.service.RestaurantService;
@@ -69,8 +70,8 @@ public class RestaurantController {
     public ResponseEntity<ApiResponse<RestaurantResponse>> updateStatus(
             @AuthenticationPrincipal Long ownerId,
             @PathVariable Long restaurantId,
-            @RequestParam RestaurantStatus status) {
-        RestaurantResponse response = restaurantService.updateStatus(ownerId, restaurantId, status);
+            @Valid @RequestBody UpdateRestaurantStatusRequest request) {
+        RestaurantResponse response = restaurantService.updateStatus(ownerId, restaurantId, request);
         return ResponseEntity.ok(ApiResponse.ok(response));
     }
 }
