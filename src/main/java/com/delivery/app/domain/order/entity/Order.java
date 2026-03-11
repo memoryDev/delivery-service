@@ -9,6 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.annotation.CreatedDate;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -55,7 +56,16 @@ public class Order extends BaseEntity {
     private OrderStatus status;
 
     @Column(nullable = false)
+    @CreatedDate
     private LocalDateTime deliveredAt;
+
+    // 가게 요청사항
+    @Column(length = 100)
+    private String restaurantRequest;
+
+    // 배달 요청사항
+    @Column(length = 100)
+    private String riderRequest;
 
     @Builder
     private Order(User user, Restaurant restaurant, String deliveryAddress, int totalPrice) {
@@ -90,6 +100,9 @@ public class Order extends BaseEntity {
         this.rider = rider;
     }
 
-
+    public void addOrderItem(OrderItem orderItem) {
+        orderItems.add(orderItem);
+        orderItem.addOrder(this);
+    }
 
 }

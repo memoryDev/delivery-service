@@ -21,6 +21,7 @@ public enum ErrorCode {
     // Restaurant
     RESTAURANT_NOT_FOUND(404, "음식점을 찾을 수 없습니다."),
     RESTAURANT_NOT_OWNER(403, "음식점 사장님만 접근 가능합니다."),
+    RESTAURANT_NOT_OPEN(400, "현재 영업 중인 음식점이 아닙니다."),
 
     // Menu
     MENU_NOT_FOUND(404, "메뉴를 찾을 수 없습니다."),
