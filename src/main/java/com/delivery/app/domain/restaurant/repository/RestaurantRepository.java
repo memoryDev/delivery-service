@@ -3,6 +3,7 @@ package com.delivery.app.domain.restaurant.repository;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
 
 import java.util.List;
 
