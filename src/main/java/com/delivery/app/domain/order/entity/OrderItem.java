@@ -53,5 +53,9 @@ public class OrderItem {
                 .build();
     }
 
+    public void addOrder(Order order) {
+        this.order = order;
+    }
+
 
 }
