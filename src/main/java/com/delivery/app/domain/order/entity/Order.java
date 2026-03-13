@@ -11,9 +11,12 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.annotation.CreatedDate;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 @Getter
 @Entity
@@ -24,6 +27,9 @@ public class Order extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Column(unique = true, nullable = false)
+    private String orderNumber; // 결제 주문 번호
 
     // 주문한 고객
     @ManyToOne(fetch = FetchType.LAZY)
@@ -74,6 +80,20 @@ public class Order extends BaseEntity {
         this.deliveryAddress = deliveryAddress;
         this.totalPrice = totalPrice;
         this.status = OrderStatus.PENDING;
+    }
+
+    @PrePersist
+    public void generateOrderNumber() {
+        if (this.orderNumber == null) {
+            // 1. 오늘 날짜 조회
+            String dateStr = LocalDate.now().format(DateTimeFormatter.ofPattern("yyyyMMdd"));
+
+            // 2. 랜덤한 영문+숫자 8자리 설정
+            String randomStr = UUID.randomUUID().toString().substring(0, 8).toUpperCase();
+
+            // 3. 오늘날짜 + 랜덤문자열 조합(예:ORD-20260313-1A2B3C4D)
+            this.orderNumber = "ORD-" + dateStr + "-" + randomStr;
+        }
     }
 
     // 객체 생성시 사용
