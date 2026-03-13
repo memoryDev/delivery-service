@@ -25,9 +25,9 @@ public class Payment extends BaseEntity {
     @JoinColumn(name = "order_id", nullable = false)
     private Order order;
 
-    // Portone 결제 고유 번호 (결제 검증 시 사용)
+    // 토스 결제 고유 번호 (결제 검증 시 사용)
     @Column(unique = true)
-    private String portoneUid;
+    private String paymentKey;
 
     // 결제 금액
     @Column(nullable = false)
@@ -45,19 +45,19 @@ public class Payment extends BaseEntity {
     private LocalDateTime paidAt;
 
     @Builder
-    public Payment(Order order, String portoneUid, int amount, PaymentMethod method) {
+    public Payment(Order order, String paymentKey, int amount, PaymentMethod method) {
         this.order = order;
-        this.portoneUid = portoneUid;
+        this.paymentKey = paymentKey;
         this.amount = amount;
         this.method = method;
         this.status = PaymentStatus.READY;
     }
 
     // 객체 생성시 사용
-    public static Payment create(Order order, String portoneUid, int amount, PaymentMethod method) {
+    public static Payment create(Order order, String paymentKey, int amount, PaymentMethod method) {
         return Payment.builder()
                 .order(order)
-                .portoneUid(portoneUid)
+                .paymentKey(paymentKey)
                 .amount(amount)
                 .method(method)
                 .build();
