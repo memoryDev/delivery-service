@@ -85,6 +85,9 @@ public class PaymentService {
                 // 결제 상태 변경
                 payment.paid();
 
+                // 주문 상태 변경
+                order.updateStatus(OrderStatus.PAID);
+
                 // DB 저장
                 Payment savedPayment = paymentRepository.save(payment);
 
