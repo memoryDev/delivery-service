@@ -56,3 +56,6 @@ logs/
 
 ### 테스트 커버리지 ###
 .jacoco/
+
+# AI Tools
+CLAUDE.md
