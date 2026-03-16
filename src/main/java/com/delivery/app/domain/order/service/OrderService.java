@@ -7,6 +7,7 @@ import com.delivery.app.domain.order.dto.request.OrderMenuRequest;
 import com.delivery.app.domain.order.dto.response.CreateOrderResponse;
 import com.delivery.app.domain.order.entity.Order;
 import com.delivery.app.domain.order.entity.OrderItem;
+import com.delivery.app.domain.order.entity.OrderStatus;
 import com.delivery.app.domain.order.repository.OrderRepository;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
@@ -92,5 +93,95 @@ public class OrderService {
                 .orderId(order.getId())
                 .totalPrice(totalPrice)
                 .build();
+    }
+
+    @Transactional
+    public void acceptOrder(Long userId, Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DeliveryException(ErrorCode.ORDER_NOT_FOUND));
+
+        // OWNER 권한 검증
+        if (!order.getRestaurant().getOwner().getId().equals(userId)) {
+            throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
+        }
+
+        if (OrderStatus.PAID != order.getStatus()) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        order.updateStatus(OrderStatus.ACCEPTED);
+    }
+
+    @Transactional
+    public void rejectOrder(Long userId, Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DeliveryException(ErrorCode.ORDER_NOT_FOUND));
+
+        // OWNER 권한 검증
+        if (!order.getRestaurant().getOwner().getId().equals(userId)) {
+            throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
+        }
+
+        if (OrderStatus.PAID != order.getStatus()) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        order.updateStatus(OrderStatus.CANCELLED);
+    }
+
+    @Transactional
+    public void startCooking(Long userId, Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DeliveryException(ErrorCode.ORDER_NOT_FOUND));
+
+        // OWNER 권한 검증
+        if (!order.getRestaurant().getOwner().getId().equals(userId)) {
+            throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
+        }
+
+        if (OrderStatus.ACCEPTED != order.getStatus()) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        order.updateStatus(OrderStatus.COOKING);
+    }
+
+    @Transactional
+    public void startDelivery(Long userId, Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DeliveryException(ErrorCode.ORDER_NOT_FOUND));
+
+        // OWNER 권한 검증
+        if (!order.getRestaurant().getOwner().getId().equals(userId)) {
+            throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
+        }
+
+        if (OrderStatus.COOKING != order.getStatus()) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        order.updateStatus(OrderStatus.DELIVERING);
+    }
+
+    @Transactional
+    public void completeDelivery(Long userId, Long orderId) {
+
+        Order order = orderRepository.findById(orderId)
+                .orElseThrow(() -> new DeliveryException(ErrorCode.ORDER_NOT_FOUND));
+
+        // OWNER 권한 검증
+        if (!order.getRestaurant().getOwner().getId().equals(userId)) {
+            throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
+        }
+
+        if (OrderStatus.DELIVERING != order.getStatus()) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
+        }
+
+        order.updateStatus(OrderStatus.DELIVERED);
     }
 }
