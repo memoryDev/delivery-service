@@ -30,7 +30,8 @@ public enum ErrorCode {
 
     // Order
     ORDER_NOT_FOUND(404, "주문을 찾을 수 없습니다."),
-    INVALID_ORDER_STATUS(400, "유효하지 않은 주문 상태입니다."),
+    INVALID_ORDER_STATUS(400, "유효하지 않은 주문 상태 전환입니다."),
+    ORDER_ACCESS_DENIED(403, "해당 주문에 접근 권한이 없습니다."),
     MIN_ORDER_PRICE_NOT_MET(400, "최소 주문 금액을 충족하지 않습니다."),
 
     // Payment
