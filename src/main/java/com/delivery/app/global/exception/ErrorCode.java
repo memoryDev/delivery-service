@@ -43,6 +43,7 @@ public enum ErrorCode {
     REVIEW_NOT_FOUND(404, "리뷰를 찾을 수 없습니다."),
     REVIEW_ALREADY_EXISTS(409, "이미 리뷰를 작성했습니다."),
     REVIEW_NOT_DELIVERED(400, "배달 완료된 주문만 리뷰 작성이 가능합니다."),
+    REVIEW_ACCESS_DENIED(403, "리뷰에 접근 권한이 없습니다."),
 
     // Rider
     RIDER_NOT_FOUND(404, "라이더를 찾을 수 없습니다."),
