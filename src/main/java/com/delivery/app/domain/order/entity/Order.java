@@ -28,6 +28,9 @@ public class Order extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Version
+    private Long version;
+
     @Column(unique = true, nullable = false)
     private String orderNumber; // 결제 주문 번호
 

@@ -1,9 +1,7 @@
 package com.delivery.app.domain.user.dto.request;
 
-import com.delivery.app.domain.user.entity.Role;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 
 @Getter
@@ -23,7 +21,4 @@ public class SignUpRequest {
     private String phone;
 
     private String address;
-
-    @NotNull(message = "역할을 선택해 주세요.")
-    private Role role;
 }
