@@ -4,6 +4,7 @@ import com.delivery.app.domain.user.dto.request.LoginRequest;
 import com.delivery.app.domain.user.dto.request.SignUpRequest;
 import com.delivery.app.domain.user.dto.response.TokenResponse;
 import com.delivery.app.domain.user.dto.response.UserResponse;
+import com.delivery.app.domain.user.entity.Role;
 import com.delivery.app.domain.user.entity.User;
 import com.delivery.app.domain.user.repository.UserRepository;
 import com.delivery.app.global.exception.DeliveryException;
@@ -39,7 +40,7 @@ public class UserService {
                 request.getName(),
                 request.getPhone(),
                 request.getAddress(),
-                request.getRole()
+                Role.USER
         );
 
         userRepository.save(user);

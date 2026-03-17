@@ -32,8 +32,7 @@ public class PaymentService {
 
     private final OrderRepository orderRepository;
     private final PaymentRepository paymentRepository;
-
-    private final RestTemplate restTemplate = new RestTemplate();
+    private final RestTemplate restTemplate;
 
     @Value("${toss.payment.secret-key}")
     private String secretKey;
@@ -55,6 +54,11 @@ public class PaymentService {
 
         if (order.getTotalPrice() != request.getAmount()) {
             throw new DeliveryException(ErrorCode.INVALID_INPUT_VALUE);
+        }
+
+        // 결제 상태 검증 (PENDING 상태에만 결제 진행)
+        if (order.getStatus() != OrderStatus.PENDING) {
+            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
         }
 
         HttpHeaders headers = new HttpHeaders();

@@ -22,6 +22,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -52,9 +54,21 @@ public class OrderService {
         // 4. 전달받은 음식 검증(해당 음식점의 메뉴가 맞는지)
         int totalMenuPrice = 0;
         List<OrderItem> orderItems = new ArrayList<>();
+        
+        // N+1 방지를 위해 요청된 모든 메뉴 ID 추출
+        List<Long> menuIds = request.getOrderItems().stream()
+                .map(OrderMenuRequest::getMenuId)
+                .toList();
+        
+        // 한 번에 메뉴 조회 후 Map으로 변환
+        Map<Long, Menu> menuMap = menuRepository.findAllById(menuIds).stream()
+                .collect(Collectors.toMap(Menu::getId, menu -> menu));
+
         for (OrderMenuRequest menuRequest : request.getOrderItems()) {
-            Menu menu = menuRepository.findById(menuRequest.getMenuId())
-                    .orElseThrow(() -> new DeliveryException(ErrorCode.MENU_NOT_FOUND));
+            Menu menu = menuMap.get(menuRequest.getMenuId());
+            if (menu == null) {
+                throw new DeliveryException(ErrorCode.MENU_NOT_FOUND);
+            }
 
             // 해당 메뉴가 고객이 요청한 식당의 메뉴가 맞는지 검증
             if (!menu.getRestaurant().getId().equals(restaurant.getId())) {
