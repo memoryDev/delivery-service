@@ -1,5 +1,6 @@
 package com.delivery.app.domain.restaurant.dto.response;
 
+import com.delivery.app.domain.restaurant.entity.CategoryType;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
 import lombok.Getter;
@@ -12,7 +13,7 @@ public class RestaurantResponse {
     private final String name;
     private final String address;
     private final String phone;
-    private final String category;
+    private final CategoryType category;
     private final int minOrderPrice;
     private final int deliveryFee;
     private final double rating;

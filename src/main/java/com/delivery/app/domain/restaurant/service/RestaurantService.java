@@ -4,6 +4,7 @@ import com.delivery.app.domain.restaurant.dto.request.CreateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantStatusRequest;
 import com.delivery.app.domain.restaurant.dto.response.RestaurantResponse;
+import com.delivery.app.domain.restaurant.entity.CategoryType;
 import com.delivery.app.domain.restaurant.entity.Restaurant;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
 import com.delivery.app.domain.restaurant.repository.RestaurantRepository;
@@ -49,7 +50,7 @@ public class RestaurantService {
     }
 
     // 음식점 목록 조회
-    public List<RestaurantResponse> getList(String category) {
+    public List<RestaurantResponse> getList(CategoryType category) {
         List<Restaurant> restaurants;
 
         if (category != null) {

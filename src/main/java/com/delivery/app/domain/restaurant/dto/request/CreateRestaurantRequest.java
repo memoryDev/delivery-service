@@ -1,5 +1,6 @@
 package com.delivery.app.domain.restaurant.dto.request;
 
+import com.delivery.app.domain.restaurant.entity.CategoryType;
 import jakarta.validation.constraints.Min;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
@@ -17,8 +18,8 @@ public class CreateRestaurantRequest {
     @NotBlank(message = "전화번호를 입력해 주세요.")
     private String phone;
 
-    @NotBlank(message = "카테고리를 입력해 주세요.")
-    private String category;
+    @NotNull(message = "카테고리를 선택해 주세요.")
+    private CategoryType category;
 
     @NotNull(message = "최소 주문 금액을 입력해 주세요.")
     @Min(value = 0, message = "최소 주문 금액은 0원 이상이어야 합니다.")
