@@ -17,7 +17,7 @@ erDiagram
         string name
         string address
         string phone
-        string category
+        enum category "KOREAN, CHINESE, WESTERN, JAPANESE, CHICKEN, PIZZA, BUNSIK, CAFE, ETC"
         float min_order_price
         float delivery_fee
         enum status "OPEN, CLOSED"
@@ -44,7 +44,7 @@ erDiagram
         bigint rider_id FK
         string delivery_address
         int total_price
-        enum status "PENDING, ACCEPTED, COOKING, DELIVERING, DELIVERED, CANCELLED"
+        enum status "PENDING, PAID, ACCEPTED, REJECTED, COOKING, DELIVERING, DELIVERED, CANCELLED"
         datetime ordered_at
         datetime delivered_at
     }
@@ -60,9 +60,9 @@ erDiagram
     PAYMENT {
         bigint id PK
         bigint order_id FK
-        string portone_uid UK
+        string payment_key UK
         int amount
-        enum method "CARD, KAKAO_PAY, NAVER_PAY, TOSS"
+        enum method "CARD, EASY_PAY, MOBILE_PHONE"
         enum status "READY, PAID, CANCELLED, FAILED"
         datetime paid_at
         datetime created_at

@@ -7,10 +7,10 @@
 ```
 main
 ├── develop
-│   ├── feature/user-auth
-│   ├── feature/order-create
-│   ├── feature/payment
-│   └── feature/review
+│   ├── feat/user-auth
+│   ├── feat/order-create
+│   ├── feat/payment
+│   └── feat/review
 ├── release/1.0.0
 └── hotfix/fix-payment-bug
 ```
@@ -20,22 +20,22 @@ main
 | 브랜치 | 용도 |
 |---|---|
 | `main` | 배포 가능한 최종 브랜치. 직접 push 금지 |
-| `develop` | 개발 통합 브랜치. feature 브랜치의 merge 대상 |
-| `feature/*` | 기능 단위 개발 브랜치 |
+| `develop` | 개발 통합 브랜치. feat 브랜치의 merge 대상 |
+| `feat/*` | 기능 단위 개발 브랜치 |
 | `release/*` | 배포 전 QA 브랜치 |
 | `hotfix/*` | 운영 긴급 버그 수정 |
 
 ### 브랜치 네이밍 규칙
 
 ```
-feature/{도메인}-{작업내용}
+feat/{도메인}-{작업내용}
 
 예시)
-feature/user-signup
-feature/order-create
-feature/payment-portone
-feature/rider-fcm
-feature/review-crud
+feat/user-signup
+feat/order-create
+feat/payment-toss
+feat/rider-fcm
+feat/review-crud
 ```
 
 ---

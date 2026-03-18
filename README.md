@@ -40,7 +40,7 @@ Developer → GitHub → Jenkins → Docker → Deploy
 | Infra | Docker, Docker Compose, NGINX |
 | 보안 | HashiCorp Vault, JWT |
 | 알림 | Firebase Cloud Messaging (FCM) |
-| 결제 | Portone (아임포트) |
+| 결제 | Toss Payments API |
 | 문서 | Swagger (SpringDoc) |
 
 ---
@@ -83,9 +83,9 @@ delivery-project/
 ## 🗺️ 개발 로드맵
 
 - [x] Phase 1 — 프로젝트 설계 (ERD, API 명세, 컨벤션)
-- [ ] Phase 2 — Spring Boot 앱 개발 (CRUD, JWT 인증)
+- [x] Phase 2 — Spring Boot 앱 개발 (CRUD, JWT 인증, Toss Payments)
 - [ ] Phase 3 — Docker 컨테이너화
-- [ ] Phase 4 — Redis 도입 (Session / Cache)
+- [ ] Phase 4 — Redis 세션/캐시 분리
 - [ ] Phase 5 — Jenkins CI/CD 파이프라인
 - [ ] Phase 6 — NGINX + 서버 다중화
 - [ ] Phase 7 — MySQL Master/Slave + Vault + Firebase
@@ -94,26 +94,36 @@ delivery-project/
 
 ## 📄 문서
 
-- [아키텍처 설명](./docs/01-architecture/architecture.md)
-- [ERD](./docs/02-database/erd.mermaid)
+- [ERD](./docs/database/erd.mermaid)
+- [패키지 구조 설명](./docs/database/project-structure.txt)
 - [API 명세서](./docs/03-api/api-spec.md)
-- [Git 컨벤션](./docs/05-convention/git-convention.md)
-- [Docker 구성](./docs/04-infra/docker.md)
-- [Jenkins 파이프라인](./docs/04-infra/jenkins.md)
+- [Git 컨벤션](./docs/convention/git-convention.md)
+- [코드 컨벤션](./docs/convention/code-convention.md)
 
 ---
 
 ## ⚙️ 로컬 실행 방법
 
-```bash
-# 전체 컨테이너 실행
-docker-compose up -d
+### 사전 요구사항
+- Java 17+
+- MySQL (localhost:3309, DB: `delivery`, root/root)
+- Redis (localhost:6379)
 
-# 앱만 실행 (개발 시)
-./gradlew bootRun
+```bash
+# 기본 실행 (local 프로파일)
+./gradlew bootRun --args='--spring.profiles.active=local'
+
+# 결제 기능 포함 실행 (Toss Payments 키 필요)
+./gradlew bootRun --args='--spring.profiles.active=local,secret'
+
+# 빌드
+./gradlew build
+
+# 테스트 제외 빌드
+./gradlew build -x test
 ```
 
-> 환경변수 설정은 [Vault 문서](./docs/04-infra/vault.md) 참고
+Swagger UI: `http://localhost:8080/swagger-ui.html`
 
 ---
 

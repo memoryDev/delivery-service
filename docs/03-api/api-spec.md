@@ -294,6 +294,13 @@ Request 파라미터 없음
 
 ## ORDER
 
+> **주문 상태 흐름**
+> ```
+> PENDING → PAID → ACCEPTED → COOKING → DELIVERING → DELIVERED
+>                ↘ REJECTED
+> PENDING → CANCELLED
+> ```
+
 ### POST `/api/restaurants/{restaurantId}/orders` — 주문 생성
 
 **인증:** 필요
@@ -419,6 +426,27 @@ Request 파라미터 없음
 | 설명 | 필드 | 타입 |
 |------|------|------|
 | 결제 ID | paymentId | Long |
+| 주문 번호 | orderNumber | String |
+| 결제 금액 | amount | int |
+| 결제 수단 | method | PaymentMethod |
+| 결제 상태 | status | PaymentStatus |
+| 결제 완료 일시 | paidAt | LocalDateTime |
+
+---
+
+## CATEGORY
+
+### GET `/api/categories` — 카테고리 목록 조회
+
+**인증:** 불필요
+
+Request 파라미터 없음
+
+**Response** `List<String>`
+
+음식점 카테고리 전체 목록을 반환합니다.
+
+가능한 값: `KOREAN`, `CHINESE`, `WESTERN`, `JAPANESE`, `CHICKEN`, `PIZZA`, `BUNSIK`, `CAFE`, `ETC`
 
 ---
 
