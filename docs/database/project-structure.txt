@@ -102,9 +102,9 @@ global/
 - 주문 생성 (장바구니 → 주문)
 - 주문 상태 관리
   ```
-  PENDING → ACCEPTED → COOKING → DELIVERING → DELIVERED
-                ↓
-           CANCELLED
+  PENDING → PAID → ACCEPTED → COOKING → DELIVERING → DELIVERED
+                 ↘ REJECTED
+  PENDING → CANCELLED
   ```
 - 주문 내역 조회
 - 주문 취소
@@ -112,12 +112,11 @@ global/
 ---
 
 ### 💳 payment — 결제
-Portone(아임포트) 연동 **결제 도메인**입니다.
+Toss Payments 연동 **결제 도메인**입니다.
 
-- 결제 요청 / 검증
+- 결제 승인 요청 / 검증
 - 결제 금액 위변조 검증 (서버 사이드)
-- 결제 취소 (환불)
-- 결제 수단 관리 (카드 / 카카오페이 / 네이버페이 / 토스)
+- 결제 수단 관리 (CARD, EASY_PAY, MOBILE_PHONE 등)
 
 ---
 
@@ -167,6 +166,6 @@ Review ◀─────── 완료 후 작성
 | `restaurant` | 음식점 사장님과 가게 정보 |
 | `menu` | 음식점의 음식 메뉴 |
 | `order` | 주문 생성과 상태 흐름 |
-| `payment` | Portone 연동 결제 |
+| `payment` | Toss Payments 연동 결제 |
 | `review` | 주문 완료 후 리뷰/평점 |
 | `rider` | 배달원과 FCM 푸시 알림 |

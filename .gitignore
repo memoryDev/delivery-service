@@ -39,6 +39,7 @@ out/
 ### 환경변수 & 보안 ###
 application-local.yml
 application-prod.yml
+application-secret.yml
 *.env
 .env
 
@@ -55,3 +56,6 @@ logs/
 
 ### 테스트 커버리지 ###
 .jacoco/
+
+# AI Tools
+CLAUDE.md
