@@ -31,7 +31,7 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ApiResponse<Void>> handleValidException(MethodArgumentNotValidException e) {
         String message = e.getBindingResult()
                 .getFieldErrors().stream()
-                .map(error -> error.getField() + ": " + error.getDefaultMessage())
+                .map(error -> error.getDefaultMessage())
                 .collect(java.util.stream.Collectors.joining(", "));
         log.error("ValidationException: {}", message);
         return ResponseEntity
@@ -57,8 +57,7 @@ public class GlobalExceptionHandler {
                 errorMessage = String.format(
                         "잘못된 상태값입니다. 허용되는 값: %s (입력값: '%s')",
                         Arrays.toString(enumConstants),
-                        invalidFormatException.getValue()
-                );
+                        invalidFormatException.getValue());
             }
         }
 
@@ -80,8 +79,5 @@ public class GlobalExceptionHandler {
                 .internalServerError()
                 .body(ApiResponse.fail("서버 오류가 발생했습니다."));
     }
-
-
-
 
 }
