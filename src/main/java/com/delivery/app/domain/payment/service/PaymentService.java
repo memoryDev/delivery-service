@@ -95,7 +95,14 @@ public class PaymentService {
                 // DB 저장
                 Payment savedPayment = paymentRepository.save(payment);
 
-                return ConfirmPaymentResponse.builder().paymentId(savedPayment.getId()).build();
+                return ConfirmPaymentResponse.builder()
+                        .paymentId(savedPayment.getId())
+                        .orderNumber(order.getOrderNumber())
+                        .amount(savedPayment.getAmount())
+                        .method(savedPayment.getMethod())
+                        .status(savedPayment.getStatus())
+                        .paidAt(savedPayment.getPaidAt())
+                        .build();
             } else {
                 throw new DeliveryException(ErrorCode.INTERNAL_SERVER_ERROR);
             }
