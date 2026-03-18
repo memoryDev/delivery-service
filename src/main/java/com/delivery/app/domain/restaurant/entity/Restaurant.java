@@ -35,9 +35,10 @@ public class Restaurant extends BaseEntity {
     @Column(nullable = false)
     private String phone;
 
-    // 음식 카테고리 (예: 한식, 중식, 양식)
+    // 음식 카테고리
+    @Enumerated(EnumType.STRING)
     @Column(nullable = false)
-    private String category;
+    private CategoryType category;
 
     // 최소 주문 금액
     @Column(nullable = false)
@@ -58,7 +59,7 @@ public class Restaurant extends BaseEntity {
     private boolean isDeleted = false;
 
     @Builder
-    private Restaurant(User owner, String name, String address, String phone, String category, int minOrderPrice, int deliveryFee) {
+    private Restaurant(User owner, String name, String address, String phone, CategoryType category, int minOrderPrice, int deliveryFee) {
         this.owner = owner;
         this.name = name;
         this.address = address;
@@ -72,7 +73,7 @@ public class Restaurant extends BaseEntity {
     }
 
     // 객체 생성시 사용
-    public static Restaurant create(User owner, String name, String address, String phone, String category, int minOrderPrice, int deliveryFee) {
+    public static Restaurant create(User owner, String name, String address, String phone, CategoryType category, int minOrderPrice, int deliveryFee) {
         return Restaurant.builder()
                 .owner(owner)
                 .name(name)
@@ -85,7 +86,7 @@ public class Restaurant extends BaseEntity {
     }
 
     // 음식점 정보 수정
-    public void updateRestaurant(String name, String address, String phone, String category, int minOrderPrice, int deliveryFee) {
+    public void updateRestaurant(String name, String address, String phone, CategoryType category, int minOrderPrice, int deliveryFee) {
         this.name = name;
         this.address = address;
         this.phone = phone;

@@ -105,7 +105,9 @@ public class OrderService {
 
         return CreateOrderResponse.builder()
                 .orderId(order.getId())
+                .orderNumber(order.getOrderNumber())
                 .totalPrice(totalPrice)
+                .status(order.getStatus())
                 .build();
     }
 
@@ -120,10 +122,7 @@ public class OrderService {
             throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
         }
 
-        if (OrderStatus.PAID != order.getStatus()) {
-            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
-        }
-
+        order.getStatus().validateTransition(OrderStatus.ACCEPTED);
         order.updateStatus(OrderStatus.ACCEPTED);
     }
 
@@ -138,10 +137,7 @@ public class OrderService {
             throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
         }
 
-        if (OrderStatus.PAID != order.getStatus()) {
-            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
-        }
-
+        order.getStatus().validateTransition(OrderStatus.CANCELLED);
         order.updateStatus(OrderStatus.CANCELLED);
     }
 
@@ -156,10 +152,7 @@ public class OrderService {
             throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
         }
 
-        if (OrderStatus.ACCEPTED != order.getStatus()) {
-            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
-        }
-
+        order.getStatus().validateTransition(OrderStatus.COOKING);
         order.updateStatus(OrderStatus.COOKING);
     }
 
@@ -174,10 +167,7 @@ public class OrderService {
             throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
         }
 
-        if (OrderStatus.COOKING != order.getStatus()) {
-            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
-        }
-
+        order.getStatus().validateTransition(OrderStatus.DELIVERING);
         order.updateStatus(OrderStatus.DELIVERING);
     }
 
@@ -192,10 +182,7 @@ public class OrderService {
             throw new DeliveryException(ErrorCode.ORDER_ACCESS_DENIED);
         }
 
-        if (OrderStatus.DELIVERING != order.getStatus()) {
-            throw new DeliveryException(ErrorCode.INVALID_ORDER_STATUS);
-        }
-
+        order.getStatus().validateTransition(OrderStatus.DELIVERED);
         order.updateStatus(OrderStatus.DELIVERED);
     }
 }

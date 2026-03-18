@@ -8,6 +8,7 @@ import lombok.Getter;
 @Builder
 public class CreateOrderResponse {
     private Long orderId;
-    int totalPrice;
-    OrderStatus status;
+    private String orderNumber;
+    private int totalPrice;
+    private OrderStatus status;
 }

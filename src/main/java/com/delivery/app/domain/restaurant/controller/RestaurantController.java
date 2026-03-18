@@ -4,6 +4,7 @@ import com.delivery.app.domain.restaurant.dto.request.CreateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantRequest;
 import com.delivery.app.domain.restaurant.dto.request.UpdateRestaurantStatusRequest;
 import com.delivery.app.domain.restaurant.dto.response.RestaurantResponse;
+import com.delivery.app.domain.restaurant.entity.CategoryType;
 import com.delivery.app.domain.restaurant.entity.RestaurantStatus;
 import com.delivery.app.domain.restaurant.service.RestaurantService;
 import com.delivery.app.global.response.ApiResponse;
@@ -33,7 +34,7 @@ public class RestaurantController {
     // 음식점 목록 조회 (누구나 가능)
     @GetMapping("/api/restaurants")
     public ResponseEntity<ApiResponse<List<RestaurantResponse>>> getList(
-            @RequestParam(required = false) String category) {
+            @RequestParam(required = false) CategoryType category) {
         List<RestaurantResponse> response = restaurantService.getList(category);
         return ResponseEntity.ok(ApiResponse.ok(response));
     }

@@ -49,7 +49,7 @@ public class OrderItem {
                 .order(order)
                 .menu(menu)
                 .quantity(quantity)
-                .price(quantity * menu.getPrice())
+                .price(menu.getPrice())
                 .build();
     }
 

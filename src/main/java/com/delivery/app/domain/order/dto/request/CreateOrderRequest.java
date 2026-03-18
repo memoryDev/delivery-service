@@ -1,6 +1,5 @@
 package com.delivery.app.domain.order.dto.request;
 
-import com.delivery.app.domain.order.entity.OrderItem;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
@@ -19,8 +18,8 @@ public class CreateOrderRequest {
     @NotNull(message = "배달 주소는 필수입니다.")
     private String deliveryAddress;
 
-    String restaurantRequest;
-    String RiderRequest;
+    private String restaurantRequest;
+    private String riderRequest;
 
     @NotEmpty(message = "주문 메뉴는 최소 1개 이상이어야 합니다.")
     @Valid
